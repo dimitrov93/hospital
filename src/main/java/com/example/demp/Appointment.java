@@ -21,7 +21,7 @@ public class Appointment {
 
     private String additionalInformation;
 
-    private long userId;
+    private long userId1;
 
     @ManyToOne
     private User user;
@@ -56,5 +56,21 @@ public class Appointment {
 
     public void setAdditionalInformation(String additionalInformation) {
         this.additionalInformation = additionalInformation;
+    }
+
+    public long getUserId() {
+        return userId1;
+    }
+
+    public void setUserId(long userId1) {
+        this.userId1 = userId1;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

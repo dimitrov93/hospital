@@ -11,6 +11,7 @@ public class Role {
     private Long id;
 
     private String name;
+
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
 
@@ -54,4 +55,6 @@ public class Role {
     public void setPrivileges(Collection<Privilege> privileges) {
         this.privileges = privileges;
     }
+
+
 }
