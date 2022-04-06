@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Welcome to CodeJava Home</title>
+    <title>The Hospital</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -54,14 +54,16 @@
                 <th>E-mail</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Specialty</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user: ${listOfDoctors}">
-                <td th:text="${user.id}">User ID</td>
-                <td th:text="${user.email}">E-mail</td>
-                <td th:text="${user.firstName}">First Name</td>
-                <td th:text="${user.lastName}">Last Name</td>
+            <tr th:each="doctor: ${listOfDoctors}">
+                <td th:text="${doctor.id}">User ID</td>
+                <td th:text="${doctor.email}">E-mail</td>
+                <td th:text="${doctor.firstName}">First Name</td>
+                <td th:text="${doctor.lastName}">Last Name</td>
+                <td th:text="${doctor.specialty}">Specialty</td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/appointments}">  <button type="button">Edit  </button></a>
                     <!--                    @{/appointments-edit/{id}(id=${appointments.id})}-->

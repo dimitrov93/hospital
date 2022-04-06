@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
     <title>Doctors registration</title>
@@ -45,6 +45,13 @@
                            required minlength="2" maxlength="20" />
                 </div>
             </div>
+
+            <label class="col-4 col-form-label">Specialty: </label>
+            <select id="specialty" name="specialty">
+                <option value="Anesthesiology">Anesthesiology</option>
+                <option value="Gastroenterology">Gastroenterology</option>
+                <option value="Endocrinology">Endocrinology</option>
+            </select>
 
             <div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>

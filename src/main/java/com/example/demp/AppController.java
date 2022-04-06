@@ -58,13 +58,13 @@ public class AppController {
         return "appointments";
     }
 
-    @PostMapping("/submition")
+    @PostMapping("/submission")
     public String postTickets(@Valid Appointment appointment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
         }
         appointmentRepository.save(appointment);
-        return "congrats";
+        return "congrats_appointment";
     }
 
     @GetMapping("/doctorRegForm")
@@ -85,6 +85,6 @@ public class AppController {
 
         doctorRepository.save(doctor);
 
-        return "congrats";
+        return "congrats_doctor";
     }
 }

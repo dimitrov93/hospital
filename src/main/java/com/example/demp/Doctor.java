@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "Doctors")
+@Table(name = "doctors")
 public class Doctor {
 
     @Id
@@ -23,6 +23,9 @@ public class Doctor {
 
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
+
+    @Column(nullable = false, length = 45)
+    private String specialty;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -80,5 +83,13 @@ public class Doctor {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
     }
 }
