@@ -16,11 +16,11 @@
     <img src="https://m.media-amazon.com/images/I/31BYTzLOJ2L._AC_SX355_.jpg" width="125" height="125">
 </p>
 
-    <div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <h1>List of active Admins</h1>
     </div>
     
-<div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
         <tr>
@@ -42,11 +42,11 @@
 </div>
 
 
-    <div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <h1>List of active Doctors</h1>
     </div>
 
-    <div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
             <tr>
@@ -62,17 +62,71 @@
                 <td th:text="${user.email}">E-mail</td>
                 <td th:text="${user.firstName}">First Name</td>
                 <td th:text="${user.lastName}">Last Name</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Edit  </button></a>
+                    <!--                    @{/appointments-edit/{id}(id=${appointments.id})}-->
+                </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Delete  </button></a>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <button>   <a th:href="@{/appointments}">List of appointments</a>   </button>
-    <button>   <a th:href="@{/appointment}">Make an appointment</a>     </button>
-    <button>   <a th:href="@{/login}">Login</a>                         </button>
 </div>
 
+<div class="container text-center">
 
+    <div>
+        <h1>List of Appointments</h1>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+        </table>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Additional Information</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="app: ${listOfAppointments}">
+                <td th:text="${app.id}">Id</td>
+                <td th:text="${app.name}">Name</td>
+                <td th:text="${app.additionalInformation}">Additional Information</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Edit  </button></a>
+                    <!--                    @{/appointments-edit/{id}(id=${appointments.id})}-->
+                </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Delete  </button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/appointments}" sec:authorize="hasRole('ROLE_ADMIN')">  <button type="button">List of appointments  </button></a>
+    <a th:href="@{/appointment}">   <button type="button">Make an appointment   </button></a>
+    <a th:href="@{/login}">         <button type="button">Login                 </button></a>
+    <a th:href="@{'/doctorRegForm'}" sec:authorize="hasRole('ROLE_ADMIN')"><button type="button">Register Doctor      </button></a>
+
+    <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ROLE_ADMIN')"> <input type="submit" value="Sign Out"/> </form>
+<!--<td>-->
+<!--    <a th:href="@{/actors-edit/{id}(id=${actor.id})}">Edit</a>-->
+<!--</td>-->
+<!--<td>-->
+<!--    <form th:action="@{/delete/{id}(id=${actor.id})}" method="post">-->
+<!--        <input value="Delete" type="submit">-->
+<!--    </form>-->
+<!--</td>-->
 
 </body>
 </html>

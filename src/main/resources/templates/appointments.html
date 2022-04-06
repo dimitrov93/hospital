@@ -33,6 +33,13 @@
                 <td th:text="${app.id}">Id</td>
                 <td th:text="${app.name}">Name</td>
                 <td th:text="${app.additionalInformation}">Additional Information</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Edit  </button></a>
+                    <!--                    @{/appointments-edit/{id}(id=${appointments.id})}-->
+                </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/appointments}">  <button type="button">Delete  </button></a>
+                </td>
             </tr>
             </tbody>
         </table>

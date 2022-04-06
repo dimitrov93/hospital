@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
-    private boolean alreadySetup = false;
+    private boolean alreadySetup = true;
 
     @Autowired
     private UserRepository userRepository;
@@ -31,6 +31,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        if (alreadySetup) {
+            return;
+        }
 
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         Privilege writePrivilege = createPrivilegeIfNotFound("Write_PRIVILEGE");

@@ -33,8 +33,10 @@ public class AppController {
     public String viewHomePage(Model model){
         List<User> listUsers = userRepo.findAll();
         List<Doctor> listOfDoctors = doctorRepository.findAll();
+        List<Appointment> listOfAppointments = appointmentRepository.findAll();
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("listOfDoctors", listOfDoctors);
+        model.addAttribute("listOfAppointments", listOfAppointments);
         return "index";
     }
 
