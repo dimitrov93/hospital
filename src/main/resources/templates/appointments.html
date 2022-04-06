@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>List Users</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+
+    <div>
+        <h1>List of Appointments</h1>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+        </table>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Additional Information</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="app: ${listOfAppointments}">
+                <td th:text="${app.id}">Id</td>
+                <td th:text="${app.name}">Name</td>
+                <td th:text="${app.additionalInformation}">Additional Information</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+   <a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
+</div>
+</body>
+</html>
