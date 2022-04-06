@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.print.Doc;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,6 +16,10 @@ import java.util.List;
 
 @Controller
 public class AppController {
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -27,7 +32,9 @@ public class AppController {
     @GetMapping("")
     public String viewHomePage(Model model){
         List<User> listUsers = userRepo.findAll();
+        List<Doctor> listOfDoctors = doctorRepository.findAll();
         model.addAttribute("listUsers", listUsers);
+        model.addAttribute("listOfDoctors", listOfDoctors);
         return "index";
     }
 
@@ -49,7 +56,7 @@ public class AppController {
         return "appointments";
     }
 
-    @PostMapping("/submission")
+    @PostMapping("/submition")
     public String postTickets(@Valid Appointment appointment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
@@ -60,22 +67,22 @@ public class AppController {
 
     @GetMapping("/doctorRegForm")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("doctor", new Doctor());
         return "doctorRegForm";
     }
 
     @PostMapping("/process_doctorRegForm")
-    public String processRegister(User user) {
+    public String processRegister(Doctor doctor) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(doctor.getPassword());
+        doctor.setPassword(encodedPassword);
 
         Role userRole = roleRepository.findByName("ROLE_DOCTOR");
         Collection<Role> userRoles = Arrays.asList(userRole);
-        user.setRoles(userRoles);
+        doctor.setRoles(userRoles);
 
-        userRepo.save(user);
+        doctorRepository.save(doctor);
 
-        return "index";
+        return "congrats";
     }
 }
