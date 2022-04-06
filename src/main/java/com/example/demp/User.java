@@ -2,6 +2,7 @@ package com.example.demp;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -23,7 +24,6 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -33,6 +33,8 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    @OneToMany
+    private List<Appointment> appointments;
 
     public int getId() {
         return id;

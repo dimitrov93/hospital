@@ -2,10 +2,7 @@ package com.example.demp;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -24,6 +21,10 @@ public class Appointment {
 
     private String additionalInformation;
 
+    private long userId;
+
+    @ManyToOne
+    private User user;
 
     public long getId() {
         return id;

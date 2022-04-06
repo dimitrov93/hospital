@@ -49,13 +49,13 @@ public class AppController {
         return "appointments";
     }
 
-    @PostMapping("/submition")
+    @PostMapping("/submission")
     public String postTickets(@Valid Appointment appointment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
         }
         appointmentRepository.save(appointment);
-        return "congratz";
+        return "congrats";
     }
 
     @GetMapping("/doctorRegForm")
@@ -64,18 +64,18 @@ public class AppController {
         return "doctorRegForm";
     }
 
-    @PostMapping("/doctorRegForm")
+    @PostMapping("/process_doctorRegForm")
     public String processRegister(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        Role userRole = roleRepository.findByName("ROLE_USER");
+
+        Role userRole = roleRepository.findByName("ROLE_DOCTOR");
         Collection<Role> userRoles = Arrays.asList(userRole);
         user.setRoles(userRoles);
+
         userRepo.save(user);
 
         return "index";
     }
-
-
 }
