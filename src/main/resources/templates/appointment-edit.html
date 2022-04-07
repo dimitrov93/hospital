@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register an appointment</title>
+</head>
+<body>
+
+<form th:action="@{/app-update/{id}(id=${appEdit.id})}" th:object="${appEdit}" method="post" style="margin-left: 40%">
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</h1>
+
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+            <td th:if="#{field.hasErrors('name')}" th:errors="*{name}">Error in the name</td>
+        </tr>
+
+        <tr>
+            <td>Date:</td>
+            <td><input type="date" th:field="*{date}" /></td>
+            <td th:if="#{field.hasErrors('date')}" th:errors="*{date}">Error in date</td>
+        </tr>
+
+        <tr>
+            <td>Additional information</td>
+            <td><input type="text" th:field="*{additionalInformation}" /></td>
+            <td th:if="#{field.hasErrors('additionalInformation')}" th:errors="*{additionalInformation}">Error in the additional info</td>
+        </tr>
+
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-primary" value="save">Save</button>
+                <a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
+            </td>
+
+            <td>
+
+            </td>
+
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

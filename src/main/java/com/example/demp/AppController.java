@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.print.Doc;
@@ -64,7 +65,7 @@ public class AppController {
             return "index";
         }
         appointmentRepository.save(appointment);
-        return "congrats_appointment";
+        return "redirect:/";
     }
 
     @GetMapping("/doctorRegForm")
@@ -85,6 +86,57 @@ public class AppController {
 
         doctorRepository.save(doctor);
 
-        return "congrats_doctor";
+        return "redirect:/";
     }
+
+    // Doctor edit and delete buttons ----- Start
+    @GetMapping("/doctorRegForm-edit/{id}")
+    public String doctorEditForm(@PathVariable int id, Model model) {
+        Doctor doctor = doctorRepository.getById(id);
+        model.addAttribute("doctorEdit", doctor);
+        return "doctorRegForm-edit";
+    }
+
+
+    @PostMapping("/doctorRegForm-update/{id}")
+    public String postEditedDoctor(@PathVariable int id, Doctor doctor) {
+        doctor.setId(id);
+        doctorRepository.save(doctor);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete-doctor/{id}")
+    public String deleteDoctor(@PathVariable int id) {
+        Doctor doctor = doctorRepository.getById(id);
+        doctorRepository.delete(doctor);
+        return "redirect:/";
+    }
+
+    // Doctor edit and delete buttons ----- END
+
+
+    // Appointment edit and delete buttons ----- Start
+    @GetMapping("/app-edit/{id}")
+    public String appEditForm(@PathVariable int id, Model model) {
+        Appointment appointment = appointmentRepository.getById((long) id);
+        model.addAttribute("appEdit", appointment);
+        return "appointment-edit";
+    }
+
+
+    @PostMapping("/app-update/{id}")
+    public String postAppEdit(@PathVariable int id, Appointment appointment) {
+        appointment.setId(id);
+        appointmentRepository.save(appointment);
+        return "redirect:/";
+    }
+
+    @PostMapping("/app-delete/{id}")
+    public String deleteAppointment(@PathVariable int id) {
+        Appointment appointment = appointmentRepository.getById((long) id);
+        appointmentRepository.delete(appointment);
+        return "redirect:/";
+    }
+    // Appointment edit and delete buttons ----- END
+
 }

@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
-    private boolean alreadySetup = false;
+    private boolean alreadySetup = true;
 
     @Autowired
     private UserRepository userRepository;
@@ -58,8 +58,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Daniel.setEmail("Dani@boykov.com");
         Daniel.setRoles(Arrays.asList(admin));
         userRepository.save(Daniel);
-
-        alreadySetup = true;
     }
 
     @Transactional

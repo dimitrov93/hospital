@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Logged html</title>
+    <style>
+        .center {
+            margin: auto;
+            width: 25%;
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
-<a th:href="@{/appointments}"><button type="button">List of appointments </button></a>
 
-<a th:href="@{'/doctorRegForm'}"><button type="button">Register Doctor</button> </a>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<div class="center">
+    <h1>Admin panel</h1>
+    <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+    <a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
+    <a th:href="@{/appointments}"><button type="button">List of appointments </button></a>
+
+    <a th:href="@{'/doctorRegForm'}"><button type="button">Register Doctor</button> </a>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+
+</div>
 </body>
 </html>
