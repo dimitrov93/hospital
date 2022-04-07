@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Please input your details to make an appointment</title>
+    <title>Register an appointment</title>
 </head>
 <body>
 
 <form th:action="@{/submition}" th:object="${appointment}" method="post" style="margin-left: 40%">
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]] To the preparation!</h1>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</h1>
 
     <table>
         <tr>

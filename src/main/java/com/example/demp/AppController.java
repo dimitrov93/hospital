@@ -58,7 +58,7 @@ public class AppController {
         return "appointments";
     }
 
-    @PostMapping("/submission")
+    @PostMapping("/submition")
     public String postTickets(@Valid Appointment appointment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
