@@ -119,7 +119,10 @@ public class AppController {
 
     // Appointment edit and delete buttons ----- Start
     @GetMapping("/app-edit/{id}")
-    public String appEditForm(@PathVariable int id, Model model) {
+    public String appEditForm(@PathVariable int id, Model model, Appointment appointmentList) {
+        List<Doctor> doctorList = doctorRepository.findAll();
+        model.addAttribute("listDoctors", doctorList);
+        model.addAttribute("appointment", appointmentList);
         Appointment appointment = appointmentRepository.getById((long) id);
         model.addAttribute("appEdit", appointment);
         return "appointment-edit";
