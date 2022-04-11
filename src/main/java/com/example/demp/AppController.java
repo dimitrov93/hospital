@@ -48,6 +48,8 @@ public class AppController {
 
     @GetMapping("/appointment")
     public String indexHtml(Appointment appointment, Model model) {
+        List<Doctor> doctorList = doctorRepository.findAll();
+        model.addAttribute("listDoctors", doctorList);
         model.addAttribute("appointment", appointment);
         return "appointment";
     }
@@ -56,7 +58,7 @@ public class AppController {
     public String listUsers(Model model) {
         List<Appointment> listOfAppointments = appointmentRepository.findAll();
         model.addAttribute("listOfAppointments", listOfAppointments);
-        return "appointments";
+        return "appointments_list";
     }
 
     @PostMapping("/submition")

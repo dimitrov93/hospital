@@ -7,11 +7,11 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@Table(name = "appointments")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
 
     @Size(min = 2)
     private String name;
@@ -21,7 +21,9 @@ public class Appointment {
 
     private String additionalInformation;
 
-    private long userId1;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 
     @ManyToOne
     private User user;
@@ -58,19 +60,19 @@ public class Appointment {
         this.additionalInformation = additionalInformation;
     }
 
-    public long getUserId() {
-        return userId1;
-    }
-
-    public void setUserId(long userId1) {
-        this.userId1 = userId1;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

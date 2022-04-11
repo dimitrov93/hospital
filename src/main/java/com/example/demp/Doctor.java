@@ -27,6 +27,9 @@ public class Doctor {
     @Column(nullable = false, length = 45)
     private String specialty;
 
+    @OneToMany(mappedBy = "doctor")
+    private Collection<Appointment> appointments;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -35,7 +38,6 @@ public class Doctor {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-
 
     public int getId() {
         return id;
@@ -91,5 +93,13 @@ public class Doctor {
 
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    public Collection<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Collection<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }
