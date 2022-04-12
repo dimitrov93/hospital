@@ -19,6 +19,9 @@ public class Appointment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
+    @Column(nullable = false, length = 45)
+    private String type;
+
     private String additionalInformation;
 
     @ManyToOne
@@ -26,7 +29,8 @@ public class Appointment {
     private Doctor doctor;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     public long getId() {
         return id;
@@ -60,19 +64,27 @@ public class Appointment {
         this.additionalInformation = additionalInformation;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Doctor getDoctor() {
         return doctor;
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

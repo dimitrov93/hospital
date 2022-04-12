@@ -1,37 +1,42 @@
 package com.example.demp;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
-
+@Table(name = "patients")
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable = false, unique = true, length = 45)
+    @Column(nullable = false, length = 45, unique = true)
     private String email;
 
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(name = "first_name", nullable = false, length = 20)
+    @Column(nullable = false, length = 45, name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 20)
+    @Column(nullable = false, length = 45, name = "last_name")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient")
+    private Collection<Appointment> appointments;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
-            name = "users_roles",
+            name = "patients_roles",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "patient_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> user_roles;
+                    name = "patient_role_id", referencedColumnName = "id"))
+    private Collection<Role> patient_roles;
 
     public int getId() {
         return id;
@@ -73,11 +78,19 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Collection<Role> getUser_roles() {
-        return user_roles;
+    public Collection<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public void setUser_roles(Collection<Role> user_roles) {
-        this.user_roles = user_roles;
+    public void setAppointments(Collection<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public Collection<Role> getPatient_roles() {
+        return patient_roles;
+    }
+
+    public void setPatient_roles(Collection<Role> patient_roles) {
+        this.patient_roles = patient_roles;
     }
 }

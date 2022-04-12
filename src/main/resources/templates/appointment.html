@@ -17,6 +17,21 @@
             <td th:if="#{field.hasErrors('name')}" th:errors="*{name}">Error in the name</td>
         </tr>
 
+        <div align="left">
+            <tr>
+                <td>Your E- mail:</td>
+                <td>
+                    <select th:field="*{patient}" name="patient_id" id="patientDropList" class="form-control">
+                        <option
+                                th:each="patient : ${listPatients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.email}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </div>
+
         <tr>
             <td>Date:</td>
             <td><input type="date" th:field="*{date}" /></td>
@@ -27,7 +42,7 @@
             <tr>
                 <td>Doctors:</td>
             <td>
-                <select th:field="*{doctor}" name="doctor_id" id="doctor_id" class="form-control">
+                <select th:field="*{doctor}" name="doctor_id" id="doctorDropList" class="form-control">
                     <option
                             th:each="doctor : ${listDoctors}"
                             th:value="${doctor.id}"
@@ -35,6 +50,20 @@
                     </option>
                 </select>
             </td>
+            </tr>
+        </div>
+
+        <div align="left">
+            <tr>
+                <td>Type:</td>
+                <td>
+                    <select th:field="*{type}" name="type" id="type1" class="form-control">
+                        <option value="initial">initial</option>
+                        <option value="secondary">secondary</option>
+                        <option value="consultation">consultation</option>
+                        <option value="procedure">procedure</option>
+                    </select>
+                </td>
             </tr>
         </div>
 

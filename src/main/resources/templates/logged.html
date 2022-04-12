@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Logged html</title>
@@ -15,15 +15,9 @@
 <body>
 
 <div class="center">
-    <h1>Admin panel</h1>
+    <h1>Successfully logged</h1>
     <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
     <a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
-    <a th:href="@{/appointments}"><button type="button">List of appointments </button></a>
-
-    <a th:href="@{'/doctorRegForm'}"><button type="button">Register Doctor</button> </a>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
 
 </div>
 </body>

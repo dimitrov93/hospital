@@ -1,5 +1,8 @@
 package com.example.demp;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -30,14 +33,15 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private Collection<Appointment> appointments;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
-            name = "users_roles",
+            name = "doctor_roles",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "doctor_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+                    name = "doctor_role_id", referencedColumnName = "id"))
+    private Collection<Role> doctor_roles;
 
     public int getId() {
         return id;
@@ -79,14 +83,6 @@ public class Doctor {
         this.lastName = lastName;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
     public String getSpecialty() {
         return specialty;
     }
@@ -101,5 +97,13 @@ public class Doctor {
 
     public void setAppointments(Collection<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public Collection<Role> getDoctor_roles() {
+        return doctor_roles;
+    }
+
+    public void setDoctor_roles(Collection<Role> doctor_roles) {
+        this.doctor_roles = doctor_roles;
     }
 }

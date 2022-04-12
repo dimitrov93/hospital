@@ -11,8 +11,14 @@ public class Privilege {
 
     private String name;
 
-    @ManyToMany(mappedBy = "privileges")
-    private Collection<Role> roles;
+    @ManyToMany(mappedBy = "userPrivileges")
+    private Collection<Role> userRoles;
+
+    @ManyToMany(mappedBy = "doctorPrivileges")
+    private Collection<Role> doctorRoles;
+
+    @ManyToMany(mappedBy = "patientPrivileges")
+    private Collection<Role> patientRoles;
 
     public Long getId() {
         return id;
@@ -30,11 +36,27 @@ public class Privilege {
         this.name = name;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Collection<Role> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setUserRoles(Collection<Role> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public Collection<Role> getDoctorRoles() {
+        return doctorRoles;
+    }
+
+    public void setDoctorRoles(Collection<Role> doctorRoles) {
+        this.doctorRoles = doctorRoles;
+    }
+
+    public Collection<Role> getPatientRoles() {
+        return patientRoles;
+    }
+
+    public void setPatientRoles(Collection<Role> patientRoles) {
+        this.patientRoles = patientRoles;
     }
 }

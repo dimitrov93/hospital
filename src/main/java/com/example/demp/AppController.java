@@ -30,13 +30,18 @@ public class AppController {
     @Autowired
     private  AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
     @GetMapping("")
     public String viewHomePage(Model model){
         List<User> listUsers = userRepo.findAll();
         List<Doctor> listOfDoctors = doctorRepository.findAll();
+        List<Patient> listOfPatients = patientRepository.findAll();
         List<Appointment> listOfAppointments = appointmentRepository.findAll();
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("listOfDoctors", listOfDoctors);
+        model.addAttribute("listOfPatients", listOfPatients);
         model.addAttribute("listOfAppointments", listOfAppointments);
         return "index";
     }
@@ -49,7 +54,9 @@ public class AppController {
     @GetMapping("/appointment")
     public String indexHtml(Appointment appointment, Model model) {
         List<Doctor> doctorList = doctorRepository.findAll();
+        List<Patient> patientList = patientRepository.findAll();
         model.addAttribute("listDoctors", doctorList);
+        model.addAttribute("listPatients", patientList);
         model.addAttribute("appointment", appointment);
         return "appointment";
     }
@@ -71,22 +78,43 @@ public class AppController {
     }
 
     @GetMapping("/doctorRegForm")
-    public String showRegistrationForm(Model model) {
+    public String showDoctorRegistrationForm(Model model) {
         model.addAttribute("doctor", new Doctor());
         return "doctorRegForm";
     }
 
+    @GetMapping("/patientRegForm")
+    public String showPatientRegistrationForm(Model model) {
+        model.addAttribute("patient", new Patient());
+        return "patientRegForm";
+    }
+
     @PostMapping("/process_doctorRegForm")
-    public String processRegister(Doctor doctor) {
+    public String processDoctorRegister(Doctor doctor) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(doctor.getPassword());
         doctor.setPassword(encodedPassword);
 
         Role userRole = roleRepository.findByName("ROLE_DOCTOR");
         Collection<Role> userRoles = Arrays.asList(userRole);
-        doctor.setRoles(userRoles);
+        doctor.setDoctor_roles(userRoles);
 
         doctorRepository.save(doctor);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/process_patientRegForm")
+    public String processPatientRegister(Patient patient) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(patient.getPassword());
+        patient.setPassword(encodedPassword);
+
+        Role userRole = roleRepository.findByName("ROLE_PATIENT");
+        Collection<Role> userRoles = Arrays.asList(userRole);
+        patient.setPatient_roles(userRoles);
+
+        patientRepository.save(patient);
 
         return "redirect:/";
     }
@@ -116,6 +144,29 @@ public class AppController {
 
     // Doctor edit and delete buttons ----- END
 
+    // Patient edit and delete buttons ----- Start
+    @GetMapping("/patientRegForm-edit/{id}")
+    public String patientEditForm(@PathVariable int id, Model model) {
+        Patient patient = patientRepository.getById(id);
+        model.addAttribute("patientEdit", patient);
+        return "patientRegForm-edit";
+    }
+
+    @PostMapping("/patientRegForm-update/{id}")
+    public String postEditedPatient(@PathVariable int id, Patient patient) {
+        patient.setId(id);
+        patientRepository.save(patient);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete-patient/{id}")
+    public String deletePatient(@PathVariable int id) {
+        Patient patient = patientRepository.getById(id);
+        patientRepository.delete(patient);
+        return "redirect:/";
+    }
+
+    // Patient edit and delete buttons ----- END
 
     // Appointment edit and delete buttons ----- Start
     @GetMapping("/app-edit/{id}")

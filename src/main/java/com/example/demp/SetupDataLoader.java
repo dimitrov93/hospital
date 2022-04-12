@@ -37,18 +37,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         }
 
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        Privilege writePrivilege = createPrivilegeIfNotFound("Write_PRIVILEGE");
+        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 
         List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
         Role admin = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_USER", Arrays.asList(writePrivilege));
+        createRoleIfNotFound("ROLE_DOCTOR", Arrays.asList(writePrivilege));
+        createRoleIfNotFound("ROLE_PATIENT", Arrays.asList(writePrivilege));
 
         User Cvetomir = new User();
         Cvetomir.setFirstName("Cvetomir");
         Cvetomir.setLastName("Dimitrov");
         Cvetomir.setPassword(passwordEncoder.encode("Ceko"));
         Cvetomir.setEmail("Ceko@dimitrov.com");
-        Cvetomir.setRoles(Arrays.asList(admin));
+        Cvetomir.setUser_roles(Arrays.asList(admin));
         userRepository.save(Cvetomir);
 
         User Daniel = new User();
@@ -56,7 +57,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Daniel.setLastName("Boykov");
         Daniel.setPassword(passwordEncoder.encode("Dani"));
         Daniel.setEmail("Dani@boykov.com");
-        Daniel.setRoles(Arrays.asList(admin));
+        Daniel.setUser_roles(Arrays.asList(admin));
         userRepository.save(Daniel);
     }
 
@@ -79,7 +80,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (role == null) {
             role = new Role();
             role.setName(name);
-            role.setPrivileges(privileges);
+            role.setDoctorPrivileges(privileges);
+            role.setPatientPrivileges(privileges);
             roleRepository.save(role);
         }
         return role;

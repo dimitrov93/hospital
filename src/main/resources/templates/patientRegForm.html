@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Doctors registration</title>
+    <title>Patient registration</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -10,9 +10,9 @@
 <body>
 <div class="container text-center">
     <div>
-        <h1>Create a doctor</h1>
+        <h1>Create a patient</h1>
     </div>
-    <form th:action="@{/process_doctorRegForm}" th:object="${doctor}"
+    <form th:action="@{/process_patientRegForm}" th:object="${patient}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">
@@ -45,25 +45,6 @@
                            required minlength="2" maxlength="20" />
                 </div>
             </div>
-
-            <label class="col-4 col-form-label">Specialty: </label>
-            <select id="specialty" name="specialty">
-                <option value="Anesthesiology">Anesthesiology</option>
-                <option value="Gastroenterology">Gastroenterology</option>
-                <option value="Endocrinology">Endocrinology</option>
-                <option value="Internal diseases">Internal diseases</option>
-                <option value="Cardiology">Cardiology</option>
-                <option value="Dermatology">Dermatology</option>
-                <option value="Neurology">Neurology</option>
-                <option value="Nephrology">Nephrology</option>
-                <option value="Psychiatry">Psychiatry</option>
-                <option value="Rheumatology">Rheumatology</option>
-                <option value="Gynecology">Gynecology</option>
-                <option value="Orthopedics">Orthopedics</option>
-                <option value="Ophthalmology">Ophthalmology</option>
-                <option value="Urology">Urology</option>
-                <option value="Surgery">Surgery</option>
-            </select>
 
             <div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>
