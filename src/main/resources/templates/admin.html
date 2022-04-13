@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged html</title>
+
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        function showPatients() {
+            if (document.getElementById("showandhide").style.display == "none") {
+                document.getElementById("showandhide").style.display = 'block';
+            }
+            else{
+                document.getElementById("showandhide").style.display = 'none';
+            }
+        }
+
+        function showDoctors() {
+            if (document.getElementById("showandhide2").style.display == "none") {
+                document.getElementById("showandhide2").style.display = 'block';
+            }
+            else{
+                document.getElementById("showandhide2").style.display = 'none';
+            }
+        }
+
+        function showAppointments() {
+            if (document.getElementById("showandhide3").style.display == "none") {
+                document.getElementById("showandhide3").style.display = 'block';
+            }
+            else{
+                document.getElementById("showandhide3").style.display = 'none';
+            }
+        }
+    </script>
+
+
+    <style>
+        .center {
+            margin: auto;
+            width: 35%;
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="center">
+    <h1>ADMIN PANEL</h1>
+    <h2 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!</h2>
+    <a th:href="@{/appointment}" >   <button type="button">Register Appointment   </button></a>
+    <a th:href="@{'/doctorRegForm'}" ><button type="button">Register Doctor      </button></a>
+    <a th:href="@{/patientRegForm}">   <button type="button">Register Patient   </button></a>
+    <a th:href="@{'/'}"><button type="button">Return to main Page</button> </a>
+
+    <form th:action="@{/logout}" method="post"> <input type="submit" value="Sign Out"/> </form>
+
+    <button type="button" class="btn btn-info" onclick="showPatients()">Show Patients</button>
+    <button type="button" class="btn btn-info" onclick="showDoctors()">Show Doctors</button>
+    <button type="button" class="btn btn-info" onclick="showAppointments()">Show Appointments</button>
+</div>
+
+<div id="showandhide" style="display: none">
+<div class="container text-center">
+    <div align="center">
+        <h1>List of active Patients</h1>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>E-mail</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient: ${listOfPatients}">
+                <td th:text="${patient.id}">User ID</td>
+                <td th:text="${patient.email}">E-mail</td>
+                <td th:text="${patient.firstName}">First Name</td>
+                <td th:text="${patient.lastName}">Last Name</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/patientRegForm-edit/{id}(id=${patient.id})}">  <button type="button">Edit  </button></a>
+                </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form th:action="@{/delete-patient/{id}(id=${patient.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<div id="showandhide2" style="display: none">
+    <div class="container text-center">
+
+        <div>
+            <h1>List of active Doctors</h1>
+        </div>
+
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>E-mail</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Specialty</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="doctor: ${listOfDoctors}">
+                    <td th:text="${doctor.id}">User ID</td>
+                    <td th:text="${doctor.email}">E-mail</td>
+                    <td th:text="${doctor.firstName}">First Name</td>
+                    <td th:text="${doctor.lastName}">Last Name</td>
+                    <td th:text="${doctor.specialty}">Specialty</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/doctorRegForm-edit/{id}(id=${doctor.id})}">  <button type="button">Edit  </button></a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{/delete-doctor/{id}(id=${doctor.id})}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="showandhide3" style="display: none">
+    <div class="container text-center">
+
+        <div>
+            <h1>List of Appointments</h1>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+            </table>
+        </div>
+
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Additional Information</th>
+                    <th>Doctor's email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="app: ${listOfAppointments}">
+                    <td th:text="${app.id}">Id</td>
+                    <td th:text="${app.name}">Name</td>
+                    <td th:text="${app.additionalInformation}">Additional Information</td>
+                    <td th:text="${app.doctor.email}">Doctor's email</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/app-edit/{id}(id=${app.id})}">  <button type="button">Edit  </button></a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{/app-delete/{id}(id=${app.id})}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

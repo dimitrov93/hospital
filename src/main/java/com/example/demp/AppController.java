@@ -5,9 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.print.Doc;
 import javax.validation.Valid;
@@ -48,8 +46,28 @@ public class AppController {
 
     @GetMapping("/logged")
     public String viewHomePage(){
-        return "logged";
+        return "redirect:/";
     }
+
+    @GetMapping("/admin")
+    public String adminPanelView(Model model){
+        List<User> listUsers = userRepo.findAll();
+        List<Doctor> listOfDoctors = doctorRepository.findAll();
+        List<Patient> listOfPatients = patientRepository.findAll();
+        List<Appointment> listOfAppointments = appointmentRepository.findAll();
+        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("listOfDoctors", listOfDoctors);
+        model.addAttribute("listOfPatients", listOfPatients);
+        model.addAttribute("listOfAppointments", listOfAppointments);
+        return "admin";
+    }
+
+//    @RequestMapping(value="/admin/patiants", method = RequestMethod.GET)
+//    public String requestMap(Model model){
+//        List<Patient> listOfPatients = patientRepository.findAll();
+//        model.addAttribute("listOfPatients", listOfPatients);
+//        return "admin";
+//    }
 
     @GetMapping("/appointment")
     public String indexHtml(Appointment appointment, Model model) {

@@ -42,11 +42,11 @@
 </div>
 
 
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')">
         <h1>List of active Doctors</h1>
     </div>
 
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
             <tr>
@@ -79,11 +79,12 @@
 
 </div>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')" align="center">
+<div class="container text-center">
+<div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')" align="center">
     <h1>List of active Patients</h1>
 </div>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')" >
+<div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')" >
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
         <tr>
@@ -154,25 +155,13 @@
         </table>
     </div>
 
-    <a th:href="@{/appointments}" sec:authorize="hasRole('ROLE_ADMIN')">  <button type="button">List of appointments  </button></a>
-    <a th:href="@{/appointment}" sec:authorize="hasRole('ROLE_USER')">   <button type="button">Make an appointment   </button></a>
-    <a th:href="@{/login}">         <button type="button">Login                 </button></a>
-    <a th:href="@{'/doctorRegForm'}" sec:authorize="hasRole('ROLE_ADMIN')"><button type="button">Register Doctor      </button></a>
+    <a th:href="@{/appointment}" sec:authorize="hasAnyRole('ROLE_PATIENT', 'ROLE_DOCTOR')">   <button type="button">Make an appointment   </button></a>
+    <a th:href="@{/login}" sec:authorize="!isAuthenticated()">         <button type="button">Login                 </button></a>
     <a th:href="@{/patientRegForm}">   <button type="button">Register Patient   </button></a>
+    <a th:href="@{/admin}" sec:authorize="hasRole('ROLE_ADMIN')">   <button type="button">Admin Panel   </button></a>
 
-    <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ROLE_ADMIN')"> <input type="submit" value="Sign Out"/> </form>
+    <form th:action="@{/logout}" method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_PATIENT', 'ROLE_DOCTOR')"> <input type="submit" value="Sign Out"/> </form>
 
-    <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ROLE_DOCTOR')"> <input type="submit" value="Sign Out"/> </form>
-    <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ROLE_PATIENT')"> <input type="submit" value="Sign Out"/> </form>
-
-    <!--<td>-->
-<!--    <a th:href="@{/actors-edit/{id}(id=${actor.id})}">Edit</a>-->
-<!--</td>-->
-<!--<td>-->
-<!--    <form th:action="@{/delete/{id}(id=${actor.id})}" method="post">-->
-<!--        <input value="Delete" type="submit">-->
-<!--    </form>-->
-<!--</td>-->
 </div>
 </body>
 </html>
