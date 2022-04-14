@@ -19,6 +19,8 @@ public class Appointment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
+    private String time;
+
     @Column(nullable = false, length = 45)
     private String type;
 
@@ -86,5 +88,13 @@ public class Appointment {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

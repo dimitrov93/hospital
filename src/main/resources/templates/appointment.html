@@ -38,6 +38,12 @@
             <td th:if="#{field.hasErrors('date')}" th:errors="*{date}">Error in date</td>
         </tr>
 
+        <tr>
+            <td>Time:</td>
+            <td><input type="time" th:field="*{time}" /></td>
+            <td th:if="#{field.hasErrors('time')}" th:errors="*{time}">Error in time</td>
+        </tr>
+
         <div align="left">
             <tr>
                 <td>Doctors:</td>
@@ -86,6 +92,34 @@
         </tr>
     </table>
 </form>
+
+<div align="center">
+    <h1>---------------------------------</h1>
+    <h1>List of active Doctors</h1>
+</div>
+
+<div align="center">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Specialty</th>
+            <th>E-mail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="doctor: ${listDoctors}" align="center">
+            <td th:text="${doctor.firstName}" align="center">First Name</td>
+            <td th:text="${doctor.lastName}" align="center">Last Name</td>
+            <td th:text="${doctor.specialty}" align="center">Specialty</td>
+            <td th:text="${doctor.email}" align="center">E-mail</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
 
 </body>
 </html>

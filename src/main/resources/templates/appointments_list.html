@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
     <title>List Users</title>
@@ -26,6 +26,11 @@
                 <th>User ID</th>
                 <th>Name</th>
                 <th>Additional Information</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor first name</th>
+                <th>Doctor last name</th>
+                <th>Doctor's specialty</th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +38,11 @@
                 <td th:text="${app.id}">Id</td>
                 <td th:text="${app.name}">Name</td>
                 <td th:text="${app.additionalInformation}">Additional Information</td>
+                <td th:text="${#dates.format(app.date, 'yyyy-MM-dd')}">Date</td>
+                <td th:text="${app.time}">Time</td>
+                <td th:text="${app.doctor.firstName}">Doctor first name</td>
+                <td th:text="${app.doctor.lastName}">Doctor last name</td>
+                <td th:text="${app.doctor.specialty}">Doctor's specialty</td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/app-edit/{id}(id=${app.id})}">  <button type="button">Edit  </button></a>
                 </td>
