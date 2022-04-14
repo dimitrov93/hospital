@@ -109,6 +109,11 @@
                 </form>
             </td>
         </tr>
+        <tr sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')">
+            <td><button onclick="location.href='/patients/id'">ID</button></td>
+            <td><button onclick="location.href='/patients/asc'">Ascending order</button></td>
+            <td><button onclick="location.href='/patients/desc'">Descending order</button></td>
+        </tr>
         </tbody>
     </table>
 </div>

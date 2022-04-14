@@ -1,6 +1,7 @@
 package com.example.demp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class AppController {
@@ -50,7 +52,7 @@ public class AppController {
     }
 
     @GetMapping("/admin")
-    public String adminPanelView(Model model){
+    public String showAdmin(Model model) {
         List<User> listUsers = userRepo.findAll();
         List<Doctor> listOfDoctors = doctorRepository.findAll();
         List<Patient> listOfPatients = patientRepository.findAll();
@@ -62,13 +64,49 @@ public class AppController {
         return "admin";
     }
 
-//    @RequestMapping(value="/admin/patiants", method = RequestMethod.GET)
-//    public String requestMap(Model model){
-//        List<Patient> listOfPatients = patientRepository.findAll();
-//        model.addAttribute("listOfPatients", listOfPatients);
-//        return "admin";
-//    }
+    @GetMapping(value="/admin/patients/{order}")
+    public String requestMap(Model model, @PathVariable String order){
+        if (Objects.equals(order, "asc")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("firstName"));
+            model.addAttribute("listOfPatients", listOfPatients);
+        } else if (Objects.equals(order, "desc")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("firstName").descending());
+            model.addAttribute("listOfPatients", listOfPatients);
+        }else if (Objects.equals(order, "id")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("id").descending());
+            model.addAttribute("listOfPatients", listOfPatients);
+        }
+        List<Doctor> listOfDoctors = doctorRepository.findAll();
+        List<User> listUsers = userRepo.findAll();
+        List<Patient> listOfPatients = patientRepository.findAll();
+        List<Appointment> listOfAppointments = appointmentRepository.findAll();
+        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("listOfDoctors", listOfDoctors);
+        model.addAttribute("listOfAppointments", listOfAppointments);
+        return "admin";
+    }
 
+    @GetMapping(value="/patients/{order}")
+    public String sortingPatients(Model model, @PathVariable String order){
+        if (Objects.equals(order, "asc")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("firstName"));
+            model.addAttribute("listOfPatients", listOfPatients);
+        } else if (Objects.equals(order, "desc")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("firstName").descending());
+            model.addAttribute("listOfPatients", listOfPatients);
+        }else if (Objects.equals(order, "id")) {
+            List<Patient> listOfPatients = patientRepository.findAll(Sort.by("id").descending());
+            model.addAttribute("listOfPatients", listOfPatients);
+        }
+        List<Doctor> listOfDoctors = doctorRepository.findAll();
+        List<User> listUsers = userRepo.findAll();
+        List<Patient> listOfPatients = patientRepository.findAll();
+        List<Appointment> listOfAppointments = appointmentRepository.findAll();
+        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("listOfDoctors", listOfDoctors);
+        model.addAttribute("listOfAppointments", listOfAppointments);
+        return "index";
+    }
     @GetMapping("/appointment")
     public String indexHtml(Appointment appointment, Model model) {
         List<Doctor> doctorList = doctorRepository.findAll();

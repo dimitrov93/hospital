@@ -64,6 +64,7 @@
     <button type="button" class="btn btn-info" onclick="showAppointments()">Show Appointments</button>
 </div>
 
+<!--patients-->
 <div id="showandhide" style="display: none">
 <div class="container text-center">
     <div align="center">
@@ -95,12 +96,17 @@
                     </form>
                 </td>
             </tr>
+            <tr>
+                <td><button onclick="location.href='/admin/patients/id'">ID</button></td>
+                <td><button onclick="location.href='/admin/patients/asc'">Ascending order</button></td>
+                <td><button onclick="location.href='/admin/patients/desc'">Descending order</button></td>
+            </tr>
             </tbody>
         </table>
     </div>
 </div>
 </div>
-
+<!--doctors-->
 <div id="showandhide2" style="display: none">
     <div class="container text-center">
 
@@ -135,12 +141,13 @@
                         </form>
                     </td>
                 </tr>
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
+<!--appointments-->
 <div id="showandhide3" style="display: none">
     <div class="container text-center">
 
@@ -177,7 +184,6 @@
                             <button type="submit">Delete</button>
                         </form>
                     </td>
-                </tr>
                 </tbody>
             </table>
         </div>
