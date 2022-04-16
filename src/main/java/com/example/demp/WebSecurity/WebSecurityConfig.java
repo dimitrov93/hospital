@@ -1,5 +1,8 @@
-package com.example.demp;
+package com.example.demp.WebSecurity;
 
+import com.example.demp.CustomDetailsServices.CustomDoctorDetailsService;
+import com.example.demp.CustomDetailsServices.CustomPatientDetailsService;
+import com.example.demp.CustomDetailsServices.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

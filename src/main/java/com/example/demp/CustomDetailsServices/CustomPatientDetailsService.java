@@ -1,5 +1,8 @@
-package com.example.demp;
+package com.example.demp.CustomDetailsServices;
 
+import com.example.demp.CustomDetails.CustomPatientDetails;
+import com.example.demp.Entities.Patient;
+import com.example.demp.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

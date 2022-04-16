@@ -1,4 +1,6 @@
-package com.example.demp;
+package com.example.demp.Entities;
+
+import com.example.demp.Entities.Role;
 
 import javax.persistence.*;
 import java.util.Collection;

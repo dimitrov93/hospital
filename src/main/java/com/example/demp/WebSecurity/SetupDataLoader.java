@@ -1,5 +1,11 @@
-package com.example.demp;
+package com.example.demp.WebSecurity;
 
+import com.example.demp.Entities.Privilege;
+import com.example.demp.Entities.Role;
+import com.example.demp.Entities.User;
+import com.example.demp.Repositories.PrivilegeRepository;
+import com.example.demp.Repositories.RoleRepository;
+import com.example.demp.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -23,7 +29,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private RoleRepository roleRepository;
 
     @Autowired
-    private  PrivilegeRepository privilegeRepository;
+    private PrivilegeRepository privilegeRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

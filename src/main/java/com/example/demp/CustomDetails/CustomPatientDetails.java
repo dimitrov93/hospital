@@ -1,5 +1,7 @@
-package com.example.demp;
+package com.example.demp.CustomDetails;
 
+import com.example.demp.Entities.Patient;
+import com.example.demp.Entities.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

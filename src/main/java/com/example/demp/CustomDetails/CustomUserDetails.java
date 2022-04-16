@@ -1,5 +1,7 @@
-package com.example.demp;
+package com.example.demp.CustomDetails;
 
+import com.example.demp.Entities.Role;
+import com.example.demp.Entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomDoctorDetails implements UserDetails {
-    private Doctor doctor;
+public class CustomUserDetails implements UserDetails {
+    private User user;
 
-    public CustomDoctorDetails(Doctor doctor) {
-        this.doctor = doctor;
+    public CustomUserDetails(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (Role role: this.doctor.getDoctor_roles()) {
+        for (Role role: this.user.getUser_roles()) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;
@@ -26,12 +28,12 @@ public class CustomDoctorDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return doctor.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return doctor.getEmail();
+        return user.getEmail();
     }
 
     @Override
@@ -55,6 +57,8 @@ public class CustomDoctorDetails implements UserDetails {
     }
 
     public String getFullName() {
-        return doctor.getFirstName() + " " + doctor.getLastName();
+        return user.getFirstName() + " " + user.getLastName();
     }
+
+
 }

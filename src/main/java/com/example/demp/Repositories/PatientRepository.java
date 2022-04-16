@@ -1,5 +1,6 @@
-package com.example.demp;
+package com.example.demp.Repositories;
 
+import com.example.demp.Entities.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

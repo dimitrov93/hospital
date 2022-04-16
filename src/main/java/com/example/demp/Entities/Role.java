@@ -1,7 +1,6 @@
-package com.example.demp;
+package com.example.demp.Entities;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.util.Collection;
 
 @Entity

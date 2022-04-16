@@ -1,4 +1,4 @@
-package com.example.demp;
+package com.example.demp.Entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,5 +1,7 @@
 package com.example.demp;
 
+import com.example.demp.Entities.*;
+import com.example.demp.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class AppController {
     private UserRepository userRepo;
 
     @Autowired
-    private  AppointmentRepository appointmentRepository;
+    private AppointmentRepository appointmentRepository;
 
     @Autowired
     private PatientRepository patientRepository;
@@ -136,13 +137,13 @@ public class AppController {
     @GetMapping("/doctorRegForm")
     public String showDoctorRegistrationForm(Model model) {
         model.addAttribute("doctor", new Doctor());
-        return "doctorRegForm";
+        return "RegistrationForms/doctorRegForm";
     }
 
     @GetMapping("/patientRegForm")
     public String showPatientRegistrationForm(Model model) {
         model.addAttribute("patient", new Patient());
-        return "patientRegForm";
+        return "RegistrationForms/patientRegForm";
     }
 
     @PostMapping("/process_doctorRegForm")
@@ -180,7 +181,7 @@ public class AppController {
     public String doctorEditForm(@PathVariable int id, Model model) {
         Doctor doctor = doctorRepository.getById(id);
         model.addAttribute("doctorEdit", doctor);
-        return "doctorRegForm-edit";
+        return "Edits/doctorRegForm-edit";
     }
 
 
@@ -205,7 +206,7 @@ public class AppController {
     public String patientEditForm(@PathVariable int id, Model model) {
         Patient patient = patientRepository.getById(id);
         model.addAttribute("patientEdit", patient);
-        return "patientRegForm-edit";
+        return "Edits/patientRegForm-edit";
     }
 
     @PostMapping("/patientRegForm-update/{id}")
@@ -232,7 +233,7 @@ public class AppController {
         model.addAttribute("appointment", appointmentList);
         Appointment appointment = appointmentRepository.getById((long) id);
         model.addAttribute("appEdit", appointment);
-        return "appointment-edit";
+        return "Edits/appointment-edit";
     }
 
 

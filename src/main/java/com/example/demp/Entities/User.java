@@ -1,15 +1,13 @@
-package com.example.demp;
+package com.example.demp.Entities;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import com.example.demp.Entities.Role;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name = "doctors")
-public class Doctor {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,21 +25,14 @@ public class Doctor {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    @Column(nullable = false, length = 45)
-    private String specialty;
-
-    @OneToMany(mappedBy = "doctor")
-    private Collection<Appointment> appointments;
-
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "doctor_roles",
+            name = "users_roles",
             joinColumns = @JoinColumn(
-                    name = "doctor_id", referencedColumnName = "id"),
+                    name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "doctor_role_id", referencedColumnName = "id"))
-    private Collection<Role> doctor_roles;
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> user_roles;
 
     public int getId() {
         return id;
@@ -83,27 +74,11 @@ public class Doctor {
         this.lastName = lastName;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public Collection<Role> getUser_roles() {
+        return user_roles;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
-    public Collection<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(Collection<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
-    public Collection<Role> getDoctor_roles() {
-        return doctor_roles;
-    }
-
-    public void setDoctor_roles(Collection<Role> doctor_roles) {
-        this.doctor_roles = doctor_roles;
+    public void setUser_roles(Collection<Role> user_roles) {
+        this.user_roles = user_roles;
     }
 }
